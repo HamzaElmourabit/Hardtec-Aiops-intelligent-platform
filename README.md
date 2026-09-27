@@ -2,8 +2,6 @@
 
 Plateforme de support IT augmentee par le machine learning, la recherche de tickets historiques (RAG) et l'analyse AIOps. Elle expose des services HTTP pour classifier les tickets, suggerer des actions et estimer des risques d'incident. Les recommandations de l'agent restent soumises a une validation humaine.
 
-> **Perimetre.** Le depot rassemble une application de prediction, des outils d'experimentation ML et plusieurs pipelines de donnees. Les dossiers et artefacts ne correspondent pas tous a des services actifs. La composition Docker principale lance l'API, l'agent et MLflow ; le dashboard Streamlit, Airflow, dbt et Snowflake sont utilises separement ou selon l'environnement.
-
 ## Capacites
 
 | Domaine | Fonctionnalite | Point d'entree / composants |
