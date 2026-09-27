@@ -1,0 +1,31 @@
+{
+  "target": "incident_next_15m",
+  "n_features": 19,
+  "features": [
+    "multisource_anomaly_count",
+    "multisource_anomaly_ratio",
+    "multisource_high_anomaly_count",
+    "network_anomaly_count",
+    "network_anomaly_ratio",
+    "disk_anomaly_count",
+    "disk_anomaly_ratio",
+    "system_anomaly_count",
+    "system_anomaly_ratio",
+    "global_abs_change_mean",
+    "global_abs_change_median",
+    "global_large_change_count",
+    "anomaly_pressure_15m",
+    "anomaly_pressure_30m",
+    "anomaly_pressure_change",
+    "hour",
+    "day_of_week",
+    "day_of_month",
+    "is_weekend"
+  ],
+  "train_ratio": 0.7,
+  "validation_ratio": 0.15,
+  "test_ratio": 0.15,
+  "best_validation_threshold": 0.1,
+  "random_state": 42,
+  "feature_policy": "Numeric observable/current features only. Future-derived labels and minutes_to_next_fault were excluded."
+}

@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: hardtec
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - storage.yaml
+  - api.yaml
+  - agent.yaml
+  - dashboard.yaml
+  - autoscaling.yaml
+  - availability.yaml
+  - mlflow.yaml
+  - ingress.yaml
+  - headlamp-readonly-rbac.yaml
+images:
+  - name: hardtec-app
+    newName: hardtec-app
+    newTag: 20260927-ragfix

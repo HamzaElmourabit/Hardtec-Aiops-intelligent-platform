@@ -1,0 +1,10 @@
+{{ config(materialized='table') }}
+
+SELECT
+    TICKET_ID,
+    TICKET_TEXT,
+    TYPE,
+    PRIORITY,
+    QUEUE,
+    CREATED_AT
+FROM HARDTEC_DB.PUBLIC.TICKET_PREDICTIONS

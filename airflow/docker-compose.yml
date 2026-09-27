@@ -1,0 +1,27 @@
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    environment:
+      - _PIP_ADDITIONAL_REQUIREMENTS=
+      - REPO_DIR=/workspace
+      - PYTHONPATH=/workspace
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__DAGS_FOLDER=/opt/airflow/dags
+
+    volumes:
+      - ..:/workspace:rw
+      - ./dags:/opt/airflow/dags:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    ports:
+      - "8080:8080"
+
+    entrypoint:
+      - bash
+      - -c
+      - airflow standalone
+
+    restart: unless-stopped

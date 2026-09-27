@@ -1,0 +1,55 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile
+    command: python -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+    environment:
+      PYTHONPATH: /app
+      DATABASE_PATH: /app/data/lake/tickets_predictions.db
+    volumes:
+      - ../models:/app/models:ro
+      - ../data:/app/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  agent:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile
+    command: python -m uvicorn src.agent.main:app --host 0.0.0.0 --port 8001
+    environment:
+      PYTHONPATH: /app
+      AGENT_LLM_URL: ${AGENT_LLM_URL:-}
+      AGENT_LLM_API_KEY: ${AGENT_LLM_API_KEY:-}
+    volumes:
+      - ../models:/app/models:ro
+      - ../data:/app/data:ro
+    ports:
+      - "8001:8001"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  mlflow:
+    build:
+      context: ..
+      dockerfile: Docker/Dockerfile
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:////mlflow/mlflow.db --default-artifact-root /mlflow/artifacts
+    volumes:
+      - mlflow_data:/mlflow
+    ports:
+      - "5000:5000"
+
+volumes:
+  mlflow_data:

@@ -1,0 +1,46 @@
+HARDTEC AIOps Dataset Analysis
+==================================================
+Dataset: C:\Users\khadi\Desktop\hardtec-intelligent-ticketing\data\raw\processed_events_analysis.csv
+Rows: 1,746
+Columns: 35
+Memory MB: 0.90
+Duplicate rows: 0
+Timestamp column: timestamp
+Failure/error signal rows: 471
+Failure/error signal percentage: 26.98%
+
+Available detection features:
+ - event_type
+ - category
+ - severity
+ - status
+ - status_code
+ - level
+ - duration_ms
+ - hour
+ - day_of_week
+ - month
+ - hostname
+ - instance_id
+ - region
+ - environment
+ - method
+ - path
+
+Available prediction features:
+ - timestamp
+ - event_type
+ - category
+ - severity
+ - status
+ - status_code
+ - duration_ms
+ - hostname
+ - instance_id
+ - process_id
+ - region
+ - environment
+ - hour
+ - day_of_week
+ - week
+ - month

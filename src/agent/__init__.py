@@ -1,0 +1,1 @@
+"""HARDTEC AI agent service."""

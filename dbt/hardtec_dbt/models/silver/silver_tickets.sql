@@ -1,0 +1,32 @@
+{{ config(materialized='table') }}
+
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY SUBJECT, BODY
+    ) AS TICKET_ID,
+
+    TRIM(SUBJECT) AS SUBJECT,
+    TRIM(BODY) AS BODY,
+    TRIM(ANSWER) AS ANSWER,
+
+    TRIM(TYPE) AS TICKET_TYPE,
+    TRIM(QUEUE) AS QUEUE,
+    TRIM(PRIORITY) AS PRIORITY,
+    TRIM(LANGUAGE) AS LANGUAGE,
+
+    TRIM(TAG_1) AS TAG_1,
+    TRIM(TAG_2) AS TAG_2,
+    TRIM(TAG_3) AS TAG_3,
+    TRIM(TAG_4) AS TAG_4,
+    TRIM(TAG_5) AS TAG_5,
+    TRIM(TAG_6) AS TAG_6,
+    TRIM(TAG_7) AS TAG_7,
+    TRIM(TAG_8) AS TAG_8,
+
+    CONCAT(
+        COALESCE(TRIM(SUBJECT), ''),
+        ' ',
+        COALESCE(TRIM(BODY), '')
+    ) AS TICKET_TEXT
+
+FROM {{ ref('bronze_tickets') }}

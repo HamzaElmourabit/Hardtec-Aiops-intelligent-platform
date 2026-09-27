@@ -1,0 +1,139 @@
+version: 2
+
+models:
+
+  - name: bronze_tickets
+    description: "Raw tickets loaded into the Bronze layer."
+
+    columns:
+
+      - name: subject
+        description: "Original ticket subject."
+
+      - name: body
+        description: "Original ticket body."
+
+      - name: type
+        description: "Original ticket classification."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Incident
+                - Request
+                - Problem
+                - Change
+
+      - name: priority
+        description: "Original ticket priority."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - high
+                - medium
+                - low
+
+      - name: queue
+        description: "Support queue assigned to the ticket."
+        tests:
+          - not_null
+
+      - name: language
+        description: "Ticket language."
+        tests:
+          - not_null
+
+
+  - name: silver_tickets
+    description: "Cleaned and transformed tickets."
+
+    columns:
+
+      - name: ticket_id
+        description: "Generated unique identifier for the ticket."
+        tests:
+          - not_null
+
+      - name: ticket_text
+        description: "Combined subject and body used for ML processing."
+        tests:
+          - not_null
+
+      - name: ticket_type
+        description: "Cleaned ticket type."
+        tests:
+          - not_null
+
+      - name: priority
+        description: "Cleaned ticket priority."
+        tests:
+          - not_null
+
+      - name: queue
+        description: "Cleaned support queue."
+        tests:
+          - not_null
+
+
+  - name: gold_ticket_analytics
+    description: "Aggregated analytical model for ticket monitoring."
+
+    columns:
+
+      - name: ticket_type
+        tests:
+          - not_null
+
+      - name: priority
+        tests:
+          - not_null
+
+      - name: queue
+        tests:
+          - not_null
+
+      - name: total_tickets
+        tests:
+          - not_null
+
+
+  - name: gold_ai_predictions
+    description: "AI-generated ticket classifications produced by the FastAPI ML pipeline."
+
+    columns:
+
+      - name: ticket_id
+        tests:
+          - not_null
+
+      - name: ticket_text
+        tests:
+          - not_null
+
+      - name: type
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Incident
+                - Request
+                - Problem
+                - Change
+
+      - name: priority
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - HIGH
+                - MEDIUM
+                - LOW
+
+      - name: queue
+        tests:
+          - not_null
+
+      - name: created_at
+        tests:
+          - not_null

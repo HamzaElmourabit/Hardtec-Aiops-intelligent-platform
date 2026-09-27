@@ -1,0 +1,13 @@
+# Minikube, Kind, K3s or an existing on-premise Kubernetes cluster
+kubeconfig_path = "~/.kube/config"
+kube_context    = "minikube"
+namespace       = "hardtec"
+data_storage_size = "20Gi"
+mlflow_storage_size = "20Gi"
+subscription_id     = "00000000-0000-0000-0000-000000000000"
+location             = "westeurope"
+name_prefix          = "hardtec"
+environment          = "dev"
+kubernetes_version   = null
+node_count           = 2
+node_vm_size         = "Standard_D4s_v5"
