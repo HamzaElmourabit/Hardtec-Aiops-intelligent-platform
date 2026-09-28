@@ -2,6 +2,9 @@
 
 Plateforme de support IT augmentee par le machine learning, la recherche de tickets historiques (RAG) et l'analyse AIOps. Elle expose des services HTTP pour classifier les tickets, suggerer des actions et estimer des risques d'incident. Les recommandations de l'agent restent soumises a une validation humaine.
 
+## 🏗️ Architecture
+
+![System Architecture](images/hardtec_aiops_architecture_with_agent_kubernetes.png)
 ## Capacites
 
 | Domaine | Fonctionnalite | Point d'entree / composants |
