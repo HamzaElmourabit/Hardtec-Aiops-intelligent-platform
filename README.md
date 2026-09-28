@@ -63,7 +63,7 @@ flowchart LR
     DBT --> Snowflake
 ```
 
-La composition `Docker/docker-compose.yml` ne lance que `api`, `agent` et `mlflow`. Streamlit, Airflow et dbt ont leurs propres commandes/configurations dans ce mode. Le déploiement Kubernetes est une autre cible : ses manifests Kustomize incluent aussi le dashboard Streamlit. MinIO apparait dans des fichiers de configuration et des documents historiques, mais n'est pas un service de la composition Docker principale ni des ressources Kustomize listées.
+
 
 ### Déploiement Kubernetes
 
