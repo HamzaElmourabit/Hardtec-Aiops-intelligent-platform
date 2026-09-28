@@ -22,6 +22,8 @@ Plateforme de support IT augmentee par le machine learning, la recherche de tick
 
 La disponibilite du RAG et de l'AIOps depend des dependances et artefacts locaux. Snowflake et le LLM externe sont optionnels ; le fonctionnement local de base n'en depend pas.
 
+
+
 ## Architecture
 
 ```mermaid
