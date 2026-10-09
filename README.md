@@ -21,7 +21,9 @@ Plateforme de support IT augmentee par le machine learning, la recherche de tick
 | Suivi ML | Runs, metriques et artefacts d'entrainement | MLflow, `src/ml/tracking.py` |
 
 La disponibilite du RAG et de l'AIOps depend des dependances et artefacts locaux. Snowflake et le LLM externe sont optionnels ; le fonctionnement local de base n'en depend pas.
+## 🎬 Démonstration de l'Application
 
+https://github.com/user-attachments/assets/3243223a-9600-4b26-9660-fad4a577ea38
 
 
 ## Architecture
