@@ -25,6 +25,12 @@ La disponibilite du RAG et de l'AIOps depend des dependances et artefacts locaux
 
 https://github.com/user-attachments/assets/3243223a-9600-4b26-9660-fad4a577ea38
 
+## 🎬 Hardtec Agent API 
+
+https://github.com/user-attachments/assets/c89fc935-a52a-4035-8633-4fac582754a9
+
+
+
 
 ## Architecture
 
