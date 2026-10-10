@@ -96,10 +96,10 @@ except Exception as e:
 # ============================================================
 
 try:
-    from src.rag.rag_engine import retrieve_similar_tickets
+    from src.rag.rag_engine import rag_assets_available, retrieve_similar_tickets
 
-    RAG_AVAILABLE = True
-    RAG_ERROR = None
+    RAG_AVAILABLE = rag_assets_available()
+    RAG_ERROR = None if RAG_AVAILABLE else "RAG model assets are missing."
 
 except Exception as e:
     RAG_AVAILABLE = False

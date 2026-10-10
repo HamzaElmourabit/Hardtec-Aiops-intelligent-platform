@@ -17,9 +17,10 @@ from pydantic import BaseModel, Field
 from src.pipeline.predictor import predict_ticket
 
 try:
-    from src.rag.rag_engine import retrieve_similar_tickets
+    from src.rag.rag_engine import rag_assets_available, retrieve_similar_tickets
 except Exception as exc:  # pragma: no cover - depends on local RAG assets
     retrieve_similar_tickets = None
+    rag_assets_available = None
     RAG_IMPORT_ERROR = str(exc)
 else:
     RAG_IMPORT_ERROR = None
@@ -95,11 +96,16 @@ async def _optional_llm_summary(
 
 @app.get("/health")
 def health() -> dict[str, Any]:
+    rag_available = (
+        retrieve_similar_tickets is not None
+        and rag_assets_available is not None
+        and rag_assets_available()
+    )
     return {
         "status": "healthy",
         "service": "hardtec-agent",
-        "rag_available": retrieve_similar_tickets is not None,
-        "rag_error": RAG_IMPORT_ERROR,
+        "rag_available": rag_available,
+        "rag_error": None if rag_available else RAG_IMPORT_ERROR or "RAG model assets are missing.",
         "llm_configured": bool(os.getenv("AGENT_LLM_URL") and os.getenv("AGENT_LLM_API_KEY")),
     }
 

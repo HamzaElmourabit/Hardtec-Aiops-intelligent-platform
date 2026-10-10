@@ -46,29 +46,29 @@ def _get_embedding_model():
     return embedding_model
 
 
-# ============================================================
-# LOAD FAISS INDEX
-# ============================================================
-
-if not INDEX_PATH.exists():
-    raise FileNotFoundError(
-        f"FAISS index not found: {INDEX_PATH}"
-    )
-
-index = faiss.read_index(str(INDEX_PATH))
+index = None
+documents = None
 
 
-# ============================================================
-# LOAD DOCUMENTS
-# ============================================================
+def rag_assets_available() -> bool:
+    return INDEX_PATH.is_file() and DOCUMENTS_PATH.is_file()
 
-if not DOCUMENTS_PATH.exists():
-    raise FileNotFoundError(
-        f"Documents file not found: {DOCUMENTS_PATH}"
-    )
 
-with open(DOCUMENTS_PATH, "rb") as f:
-    documents = pickle.load(f)
+def _get_rag_assets():
+    global index, documents
+
+    if index is None:
+        if not INDEX_PATH.exists():
+            raise FileNotFoundError(f"FAISS index not found: {INDEX_PATH}")
+        index = faiss.read_index(str(INDEX_PATH))
+
+    if documents is None:
+        if not DOCUMENTS_PATH.exists():
+            raise FileNotFoundError(f"Documents file not found: {DOCUMENTS_PATH}")
+        with open(DOCUMENTS_PATH, "rb") as f:
+            documents = pickle.load(f)
+
+    return index, documents
 
 
 # ============================================================
@@ -86,13 +86,14 @@ def retrieve_similar_tickets(
     if not query or not query.strip():
         return []
 
+    rag_index, rag_documents = _get_rag_assets()
     query_embedding = _get_embedding_model().encode(
         [query],
         normalize_embeddings=True,
         convert_to_numpy=True
     ).astype("float32")
 
-    scores, indices = index.search(
+    scores, indices = rag_index.search(
         query_embedding,
         top_k
     )
@@ -107,7 +108,7 @@ def retrieve_similar_tickets(
         results.append(
             {
                 "score": float(score),
-                "document": documents[int(idx)],
+                "document": rag_documents[int(idx)],
                 "index": int(idx)
             }
         )
