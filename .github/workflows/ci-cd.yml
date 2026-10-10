@@ -48,10 +48,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Normalize image owner
+        id: image
+        run: echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: Docker/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/hardtec-agent:latest
+          tags: ghcr.io/${{ steps.image.outputs.owner }}/hardtec-agent:latest
