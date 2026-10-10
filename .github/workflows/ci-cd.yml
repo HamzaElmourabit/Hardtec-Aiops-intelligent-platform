@@ -28,7 +28,7 @@ jobs:
       - name: Compile Python sources
         run: python -m compileall -q src tests
       - name: Run tests
-        run: pytest -q
+        run: python -m pytest -q
       - name: Validate Docker Compose
         run: docker compose -f Docker/docker-compose.yml config --quiet
 
